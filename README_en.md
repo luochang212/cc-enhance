@@ -5,9 +5,9 @@
 
 # cc-enhance
 
-A well-configured [Claude Code](https://github.com/anthropics/claude-code) performs at its best.
+A well-configured Claude Code is a force multiplier. This project lets [Claude Code](https://github.com/anthropics/claude-code) configure itself.
 
-> cc-enhance is a self-enhancement plan — it installs a set of Agent Skills and their underlying dependencies, gradually making Claude Code more capable.
+> cc-enhance is a Claude Code capability enhancement plan. Through a preset installation wizard, it guides you through enhancing Claude Code's web search, web fetching, skill downloading, and more.
 
 ## 💻 How It Works
 

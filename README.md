@@ -5,9 +5,9 @@
 
 # cc-enhance
 
-配置精良的 [Claude Code](https://github.com/anthropics/claude-code) 才能发挥战斗力。
+配置精良才有战斗力，本项目致力于让 [Claude Code](https://github.com/anthropics/claude-code) 自己配置自己。
 
-> cc-enhance 是一项 Claude Code 自提升计划，通过安装一组 Agent Skills 及其底层依赖，让 Claude Code 逐步增强自己的能力。
+> cc-enhance 是一项 Claude Code 能力提升计划。通过一组预设的安装引导流程，带你增强 Claude Code 的网络搜索、网页获取、技能下载等能力
 
 ## 💻 工作原理
 

@@ -20,7 +20,7 @@ unzip -qo /tmp/cc-enhance.zip -d /tmp
 | label | description |
 |-------|-------------|
 | tool-registry-cce | 工具可用性追踪，跨会话记住工具状态。~300tokens。推荐。 |
-| web-search-cce | 搜索优先级链（Tavily/SearXNG→web_search_prime→DuckDuckGo），同层并发失败降级。~800tokens。 |
+| web-search-cce | 搜索优先级链（Tavily→web_search_prime→DuckDuckGo），同层并发失败降级。~800tokens。 |
 | web-fetch-cce | 网页提取三层策略（WebFetch→Crawl4AI→Playwright），含中国站点实测。~1000tokens。 |
 | agent-skills-cce | Skill 市场导航、安装、管理。~600tokens。 |
 
@@ -125,7 +125,7 @@ question 和 header 自行拟定。用户可能全选或部分选。
 ### 优先级 1：搜索（web-search-cce）
 
 1. `AskUserQuestion`（非 multiSelect）：安装完成！要不要用刚装好的搜索能力搜一下「Claude Code 最新技巧」试试效果？options: 试试 / 跳过
-2. 用户选「试试」→ 按顺序尝试搜索：内置 `WebSearch` → Tavily / SearXNG → DuckDuckGo（最后兜底）。搜索过程自然触发 `~/.claude/tool-registry.json` 的首次验证。
+2. 用户选「试试」→ 按顺序尝试搜索：内置 `WebSearch` → Tavily → DuckDuckGo（最后兜底）。搜索过程自然触发 `~/.claude/tool-registry.json` 的首次验证。
 3. 展示搜索结果时，**每条必须附带链接**，让用户能直接点开看原文。标注实际使用的工具和耗时。
 
 ### 优先级 2：网页拉取（web-fetch-cce）
@@ -143,7 +143,7 @@ question 和 header 自行拟定。用户可能全选或部分选。
    - API 端点（Tavily、DuckDuckGo 等）：发一次最小请求确认可用性
    - MCP 工具：检查 MCP server 是否可达
 2. 更新注册表中各工具的 `status`（`working` / `unreachable`）和 `updated` 时间戳。
-3. 向用户展示验证结果摘要：「✅ Tavily 可用」「⚠️ SearXNG 未运行」「✅ DuckDuckGo 可用」等。
+3. 向用户展示验证结果摘要：「✅ Tavily 可用」「✅ DuckDuckGo 可用」等。
 
 ### 优先级 4：Skills 市场（agent-skills-cce）
 
