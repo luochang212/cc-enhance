@@ -7,7 +7,7 @@
 
 A well-configured Claude Code is a force multiplier. This project lets [Claude Code](https://github.com/anthropics/claude-code) configure itself.
 
-> cc-enhance is a Claude Code capability enhancement plan. Through a preset installation wizard, it guides you through enhancing Claude Code's web search, web fetching, skill downloading, and more.
+> cc-enhance is a Claude Code capability enhancement plan. Through a preset installation wizard, it enhances Claude Code's web search, web fetching, and skill downloading capabilities.
 
 ## 💻 How It Works
 
