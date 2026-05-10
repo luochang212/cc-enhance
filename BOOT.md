@@ -1,6 +1,6 @@
 # BOOT
 
-分八个阶段安装 cc-enhance skills。每个阶段用 `AskUserQuestion` 交互，不要文字让用户输入。
+分八个阶段安装 cc-enhance skills。每个阶段用 `AskUserQuestion` 交互，不要让用户手动输入文字。
 
 ## 阶段 0：获取仓库
 
@@ -70,8 +70,8 @@ question 和 header 自行拟定。用户可能全选或部分选。
 逐一核查 catalog 中每个工具在本机是否存在：
 
 - **MCP 工具**：读 `~/.claude/settings.json`（和 `~/.claude/settings.local.json`），检查 `mcpServers` 或 `mcpServersFromPlugins` 中有没有对应条目。用 catalog 中该工具的 `invoke` 前缀（如 `mcp__web-search-prime__`）去匹配。
-- **CLI 工具**：检查对应的环境变量（`$TAVILY_API_KEY`）或可执行文件（`which docker`、`python3 -c "import crawl4ai"` 等）。同时检查阶段 3 是否刚刚安装过。
-- **API 端点**：不做网络请求验证，直接标记 `not_verified`。
+- **CLI 工具**：检查可执行文件（`which docker`、`which gh` 等）或 Python 包（`python3 -c "import crawl4ai"`）。同时检查阶段 3 是否刚刚安装过。
+- **API 端点**：检查对应的环境变量（`$TAVILY_API_KEY` 等），不做网络请求验证，标记 `not_verified`。
 
 ### 4.3 生成注册表
 
@@ -110,8 +110,8 @@ question 和 header 自行拟定。用户可能全选或部分选。
 
 对每个需注册的依赖：
 1. `AskUserQuestion`（非 multiSelect）：是否注册？options: 注册 / 跳过
-2. 用户选「注册」→ 用 `open`（macOS）或等效命令打开注册页面 → 等待用户粘贴 API Key / 凭证
-3. 将凭证写入对应配置文件（如 `export TAVILY_API_KEY=xxx` 追加到 `~/.zshrc`）
+2. 用户选「注册」→ 打开注册页面（macOS: `open <url>` / Linux: `xdg-open <url>` / Windows: `start <url>`）→ 等待用户粘贴 API Key / 凭证
+3. 将凭证写入当前 shell 对应的配置文件（先 `echo $SHELL` 检测，再写入 `~/.zshrc` / `~/.bashrc` / `~/.bash_profile` 等），如 `export TAVILY_API_KEY=xxx`
 4. 验证凭证可用（发一次轻量请求）
 
 > 当前涉及「需注册账号」的依赖只有 Tavily API Key。后续新增 skill 若在「安装方式」中写了"注册""API Key"等关键词，会自动归入本阶段。

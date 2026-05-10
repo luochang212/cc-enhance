@@ -5,9 +5,9 @@
 
 # cc-enhance
 
-本项目致力于让 [Claude Code](https://github.com/anthropics/claude-code) 自己配置自己。
+> 让 Claude Code 自己配置自己。
 
-> **cc-enhance** 是一项 Claude Code 能力提升计划。通过预设的安装引导程序，增强 Claude Code 的网络搜索、网页获取、技能下载等能力。
+**cc-enhance** 是一项 [Claude Code](https://github.com/anthropics/claude-code) 自我提升计划，帮助 Claude Code 增强网络搜索、网页获取、技能下载等能力。
 
 ## 💻 工作原理
 
@@ -20,7 +20,7 @@
 在 Claude Code 会话中输入：
 
 ```
-用 https://github.com/luochang212/cc-enhance 提升 Claude Code 能力
+用 https://github.com/luochang212/cc-enhance 武装我的 Claude Code
 ```
 
 ## 🔧 Skills 清单

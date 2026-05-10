@@ -5,9 +5,9 @@
 
 # cc-enhance
 
-This project lets [Claude Code](https://github.com/anthropics/claude-code) configure itself.
+> Let Claude Code configure itself.
 
-> **cc-enhance** is a Claude Code self-improvement plan. Through a preset installation wizard, it boosts Claude Code's web search, web fetching, and skill downloading capabilities.
+**cc-enhance** is a [Claude Code](https://github.com/anthropics/claude-code) self-improvement plan that enhances web search, web fetching, and skill downloading capabilities.
 
 ## 💻 How It Works
 
