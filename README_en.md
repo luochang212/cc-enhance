@@ -15,7 +15,7 @@ A well-configured [Claude Code](https://github.com/anthropics/claude-code) perfo
 2. `BOOT.md` guides Claude to **present all skills for the user to multi-select**
 3. For each selected skill → copied to `~/.claude/skills/` → checks that skill's dependencies → asks whether to install each
 
-> PS: Only one skill (`tool-registry`) writes to your `~/.claude/CLAUDE.md`, with precise, fixed content. Please ask for user consent before modifying `CLAUDE.md`.
+> PS: Only one skill (`tool-registry-cce`) writes to your `~/.claude/CLAUDE.md`, with precise, fixed content. Please ask for user consent before modifying `CLAUDE.md`.
 
 ## 🚀 Usage
 
@@ -29,11 +29,11 @@ Help me enhance Claude Code with https://github.com/luochang212/cc-enhance
 
 | Skill | Function | Context Cost | Dependencies | Recommendation |
 |-------|------|-----------|------|------|
-| [tool-registry](skills/tool-registry/SKILL.md) | Tool availability tracking | ~300 tokens | None | ⭐⭐⭐ Essential |
-| [web-search](skills/web-search/SKILL.md) | Search priority chain | ~800 tokens | Tavily / SearXNG | ⭐⭐⭐ Recommended |
-| [web-fetch](skills/web-fetch/SKILL.md) | Web content extraction | ~1000 tokens | Crawl4AI (~300MB) | ⭐⭐ Optional |
-| [agent-skills](skills/agent-skills/SKILL.md) | Skill management | ~600 tokens | npx | ⭐⭐⭐ Recommended |
-| [coding-philosophy](skills/coding-philosophy/SKILL.md) | Coding philosophy | ~800 tokens | None | ⭐ Optional |
+| [tool-registry-cce](skills/tool-registry-cce/SKILL.md) | Tool availability tracking | ~300 tokens | None | ⭐⭐⭐ Recommended |
+| [web-search-cce](skills/web-search-cce/SKILL.md) | Search priority chain | ~800 tokens | Tavily / SearXNG | ⭐⭐⭐ Recommended |
+| [web-fetch-cce](skills/web-fetch-cce/SKILL.md) | Web content extraction | ~1000 tokens | Crawl4AI (~300MB) | ⭐⭐ Optional |
+| [agent-skills-cce](skills/agent-skills-cce/SKILL.md) | Skill management | ~600 tokens | npx | ⭐⭐⭐ Recommended |
+| [coding-philosophy-cce](skills/coding-philosophy-cce/SKILL.md) | Coding philosophy | ~800 tokens | None | ⭐ Optional |
 
 ## 📁 Project Structure
 
@@ -42,21 +42,22 @@ cc-enhance/
 ├── BOOT.md                          # Installation wizard entry point
 ├── README.md                        
 ├── README_en.md                     
-└── skills/                          
-    ├── tool-registry/               # Tool state tracking
-    │   ├── SKILL.md                 
-    │   └── template.json            
-    ├── web-search/                  # Search strategies
-    │   ├── SKILL.md                 
+└── skills/
+    ├── tool-registry-cce/           # Tool state tracking
+    │   ├── SKILL.md
     │   └── references/
-    ├── web-fetch/                   # Content extraction
-    │   ├── SKILL.md                 
+    │       └── tool-catalog.json
+    ├── web-search-cce/              # Search strategies
+    │   ├── SKILL.md
     │   └── references/
-    ├── agent-skills/                # Skill management
-    │   ├── SKILL.md                 
+    ├── web-fetch-cce/               # Content extraction
+    │   ├── SKILL.md
     │   └── references/
-    └── coding-philosophy/           # Coding principles
-        ├── SKILL.md                 
+    ├── agent-skills-cce/            # Skill management
+    │   ├── SKILL.md
+    │   └── references/
+    └── coding-philosophy-cce/       # Coding principles
+        ├── SKILL.md
         └── references/
 ```
 

@@ -1,11 +1,13 @@
 ---
-name: tool-registry
+name: tool-registry-cce
 description: 工具可用性追踪系统。当需要调用任何外部工具、查询工具状态、记录工具调用结果、或判断工具是否可用时，必须使用此技能。跨会话记住工具状态，避免每次盲试。
 ---
 
+> 来自 [cc-enhance](https://github.com/luochang212/cc-enhance)。`-cce` 后缀表示此技能由 cc-enhance 项目安装，避免与本地同名技能冲突。
+
 # 工具状态追踪
 
-`~/.claude/tool-registry.json` 跨会话记住工具可用性，避免每次盲试。模板见 [template.json](template.json)。
+`~/.claude/tool-registry.json` 跨会话记住工具可用性，避免每次盲试。`references/tool-catalog.json` 是常用工具参考样本，提供 invoke 格式和 notes。安装时由 BOOT 脚本扫描本机后动态生成注册表，catalog 中未覆盖的工具也可手动添加。
 
 ## 记录格式
 

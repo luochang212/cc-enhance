@@ -15,7 +15,7 @@
 2. `BOOT.md` 引导 Claude **展示全部 skill 让用户多选**
 3. 对每个选中的 skill → 复制到 `~/.claude/skills/` → 检查该 skill 的「环境依赖」→ 逐项询问是否安装
 
-> PS: 我们只有一个 skill（`tool-registry`）需要写入用户的 `~/.claude/CLAUDE.md`，且内容精确固定。请在修改 `CLAUDE.md` 之前，征求用户同意。
+> PS: 我们只有一个 skill（`tool-registry-cce`）需要写入用户的 `~/.claude/CLAUDE.md`，且内容精确固定。请在修改 `CLAUDE.md` 之前，征求用户同意。
 
 ## 🚀 使用方法
 
@@ -29,11 +29,11 @@
 
 | Skill | 功能 | 上下文开销 | 依赖 | 推荐 |
 |-------|------|-----------|------|------|
-| [tool-registry](skills/tool-registry/SKILL.md) | 工具可用性追踪 | ~300 tokens | 无 | ⭐⭐⭐⭐ 必装 |
-| [web-search](skills/web-search/SKILL.md) | 搜索优先级链 | ~800 tokens | Tavily / SearXNG | ⭐⭐⭐ 推荐 |
-| [web-fetch](skills/web-fetch/SKILL.md) | 网页提取策略 | ~1000 tokens | Crawl4AI(~300MB) | ⭐⭐ 可选 |
-| [agent-skills](skills/agent-skills/SKILL.md) | Skill 管理 | ~600 tokens | npx | ⭐⭐⭐ 推荐 |
-| [coding-philosophy](skills/coding-philosophy/SKILL.md) | 编程哲学 | ~800 tokens | 无 | ⭐ 可选 |
+| [tool-registry-cce](skills/tool-registry-cce/SKILL.md) | 工具可用性追踪 | ~300 tokens | 无 | ⭐⭐⭐ 推荐 |
+| [web-search-cce](skills/web-search-cce/SKILL.md) | 搜索优先级链 | ~800 tokens | Tavily / SearXNG | ⭐⭐⭐ 推荐 |
+| [web-fetch-cce](skills/web-fetch-cce/SKILL.md) | 网页提取策略 | ~1000 tokens | Crawl4AI(~300MB) | ⭐⭐ 可选 |
+| [agent-skills-cce](skills/agent-skills-cce/SKILL.md) | Skill 管理 | ~600 tokens | npx | ⭐⭐⭐ 推荐 |
+| [coding-philosophy-cce](skills/coding-philosophy-cce/SKILL.md) | 编程哲学 | ~800 tokens | 无 | ⭐ 可选 |
 
 ## 📁 项目结构
 
@@ -42,21 +42,22 @@ cc-enhance/
 ├── BOOT.md                          # 安装引导入口
 ├── README.md                        
 ├── README_en.md                     
-└── skills/                          
-    ├── tool-registry/               # 工具状态追踪
-    │   ├── SKILL.md                 
-    │   └── template.json            
-    ├── web-search/                  # 网络搜索策略
-    │   ├── SKILL.md                 
+└── skills/
+    ├── tool-registry-cce/           # 工具状态追踪
+    │   ├── SKILL.md
     │   └── references/
-    ├── web-fetch/                   # 网页提取策略
-    │   ├── SKILL.md                 
+    │       └── tool-catalog.json
+    ├── web-search-cce/              # 网络搜索策略
+    │   ├── SKILL.md
     │   └── references/
-    ├── agent-skills/                # Skill 管理
-    │   ├── SKILL.md                 
+    ├── web-fetch-cce/               # 网页提取策略
+    │   ├── SKILL.md
     │   └── references/
-    └── coding-philosophy/           # 编程哲学
-        ├── SKILL.md                 
+    ├── agent-skills-cce/            # Skill 管理
+    │   ├── SKILL.md
+    │   └── references/
+    └── coding-philosophy-cce/       # 编程哲学
+        ├── SKILL.md
         └── references/
 ```
 

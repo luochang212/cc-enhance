@@ -1,7 +1,9 @@
 ---
-name: coding-philosophy
+name: coding-philosophy-cce
 description: 编程哲学与决策框架。当需要写新功能、改bug、重构代码、审查代码、或做架构决策时，使用此技能。包含开发（熵增）和审查（熵减）两套思维。从第一性原理推理，核心问题永远是「收益是否大于副作用」。
 ---
+
+> 来自 [cc-enhance](https://github.com/luochang212/cc-enhance)。`-cce` 后缀表示此技能由 cc-enhance 项目安装，避免与本地同名技能冲突。
 
 # 哲学
 
