@@ -7,15 +7,13 @@
 
 本项目致力于让 [Claude Code](https://github.com/anthropics/claude-code) 自己配置自己。
 
-> cc-enhance 是一项 Claude Code 能力提升计划。通过预设的安装引导程序，增强 Claude Code 网络搜索、网页获取、技能下载的能力
+> cc-enhance 是一项 Claude Code 能力提升计划。通过预设的安装引导程序，增强 Claude Code 网络搜索、网页获取、技能下载的能力。
 
 ## 💻 工作原理
 
 1. Claude Code 读取本仓库 → 先读 `BOOT.md`
 2. `BOOT.md` 引导 Claude **展示全部 skill 让用户多选**
 3. 对每个选中的 skill → 复制到 `~/.claude/skills/` → 检查该 skill 的「环境依赖」→ 逐项询问是否安装
-
-> PS: 我们只有一个 skill（`tool-registry-cce`）需要写入用户的 `~/.claude/CLAUDE.md`，且内容精确固定。请在修改 `CLAUDE.md` 之前，征求用户同意。
 
 ## 🚀 使用方法
 

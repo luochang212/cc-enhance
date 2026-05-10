@@ -15,8 +15,6 @@ This project lets [Claude Code](https://github.com/anthropics/claude-code) confi
 2. `BOOT.md` guides Claude to **present all skills for the user to multi-select**
 3. For each selected skill → copied to `~/.claude/skills/` → checks that skill's dependencies → asks whether to install each
 
-> PS: Only one skill (`tool-registry-cce`) writes to your `~/.claude/CLAUDE.md`, with precise, fixed content. Please ask for user consent before modifying `CLAUDE.md`.
-
 ## 🚀 Usage
 
 From any Claude Code session, type:
