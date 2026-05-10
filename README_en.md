@@ -12,7 +12,7 @@ This project lets [Claude Code](https://github.com/anthropics/claude-code) confi
 ## 💻 How It Works
 
 1. Claude Code reads this repo → reads `BOOT.md` first
-2. `BOOT.md` guides Claude to **present all skills for the user to multi-select**
+2. `BOOT.md` guides Claude to present all skills for the user to multi-select
 3. For each selected skill → copied to `~/.claude/skills/` → checks that skill's dependencies → asks whether to install each
 
 ## 🚀 Usage
