@@ -1,6 +1,6 @@
 # BOOT
 
-分七个阶段安装 cc-enhance skills。每个阶段用 `AskUserQuestion` 交互，不要文字让用户输入。
+分八个阶段安装 cc-enhance skills。每个阶段用 `AskUserQuestion` 交互，不要文字让用户输入。
 
 ## 阶段 0：获取仓库
 
@@ -31,7 +31,11 @@ question 和 header 自行拟定。用户可能全选或部分选。
 对每个选中的 skill：
 
 1. 从 `/tmp/cc-enhance-main/skills/<name>/` 递归复制到 `~/.claude/skills/<name>/`（源仓库已含 `-cce` 后缀，无需额外改名）
-2. 读 SKILL.md 末尾「环境依赖」表，逐项检查，区分「已满足」和「缺失」
+2. 读 SKILL.md 末尾「环境依赖」表，逐项检查，区分「已满足」和「缺失」：
+   - **CLI 工具**（pip/npm/docker 等）：`which <cmd>` 或 `<cmd> --version`
+   - **Python 包**：`python3 -c "import <pkg>"`
+   - **API Key / 环境变量**：先查当前 shell 环境（`env | grep <KEY>` 或 `echo $<KEY>`），若未设置则搜索常见 shell 配置文件（`~/.zshrc`、`~/.bashrc`、`~/.bash_profile`、PowerShell `$PROFILE` 等）中有无对应赋值。Key 可能在配置文件中但当前 shell 未加载。
+   - **API 端点**：不做网络请求，标记为待验证
 
 全部 skill 处理完后，汇总展示：
 - 哪些 skill 已复制
@@ -112,6 +116,45 @@ question 和 header 自行拟定。用户可能全选或部分选。
 
 > 当前涉及「需注册账号」的依赖只有 Tavily API Key。后续新增 skill 若在「安装方式」中写了"注册""API Key"等关键词，会自动归入本阶段。
 
-## 阶段 6：完成
+## 阶段 6：体验引导
+
+安装只是开始，让用户立刻感受到技能的价值。
+
+按以下优先级，取用户已安装的**最高优先级** skill 进行体验引导（只展示一个，用户选「跳过」则结束，不连续追问）：
+
+### 优先级 1：搜索（web-search-cce）
+
+1. `AskUserQuestion`（非 multiSelect）：安装完成！要不要用刚装好的搜索能力搜一下「Claude Code 最新技巧」试试效果？options: 试试 / 跳过
+2. 用户选「试试」→ 按顺序尝试搜索：内置 `WebSearch` → Tavily / SearXNG → DuckDuckGo（最后兜底）。搜索过程自然触发 `~/.claude/tool-registry.json` 的首次验证。
+3. 展示搜索结果时，**每条必须附带链接**，让用户能直接点开看原文。标注实际使用的工具和耗时。
+
+### 优先级 2：网页拉取（web-fetch-cce）
+
+1. `AskUserQuestion`（非 multiSelect）：安装完成！要不要试试拉取维基百科「拉丁超立方抽样」词条，看看网页提取的效果？options: 试试 / 跳过
+2. 用户选「试试」→ 用 `WebFetch` 拉取 `https://zh.wikipedia.org/wiki/拉丁超立方抽样`（零依赖、<1s、实测稳定）。展示提取结果的前几段，标注工具和耗时。
+3. 如 WebFetch 失败，降级到 Crawl4AI（若已安装）重试。
+
+> 演示 URL 取自 references/crawl4ai.md 实测矩阵中标 ✅ 的站点，高概率成功。后续可换其他已验证 URL。
+
+### 优先级 3：工具状态（tool-registry-cce）
+
+1. 无需 AskUserQuestion，直接对 `~/.claude/tool-registry.json` 中已检测到的工具执行轻量验证：
+   - CLI 工具：已在阶段 2/3 验证过，直接展示状态
+   - API 端点（Tavily、DuckDuckGo 等）：发一次最小请求确认可用性
+   - MCP 工具：检查 MCP server 是否可达
+2. 更新注册表中各工具的 `status`（`working` / `unreachable`）和 `updated` 时间戳。
+3. 向用户展示验证结果摘要：「✅ Tavily 可用」「⚠️ SearXNG 未运行」「✅ DuckDuckGo 可用」等。
+
+### 优先级 4：Skills 市场（agent-skills-cce）
+
+1. `AskUserQuestion`（非 multiSelect）：安装完成！要不要看看 skills.sh 上有哪些热门 skill？比如 Anthropic 官方出品的工具集？options: 看看 / 跳过
+2. 用户选「看看」→ 执行 `npx skills add https://github.com/anthropics/skills --list` 展示可安装的官方 skill 列表（docx、pdf、pptx、frontend-design 等 16 个）。
+3. 告知用户：想装哪个直接说「安装 skill pdf」即可。
+
+### 扩展
+
+后续新增 skill 若有可演示的能力，在本节追加优先级条目即可。
+
+## 阶段 7：完成
 
 简短总结：已安装 skills、已安装/未安装的依赖、CLAUDE.md 是否更新、已注册/未注册的账号。
