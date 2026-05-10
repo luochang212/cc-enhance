@@ -5,16 +5,19 @@
 
 # cc-enhance
 
-A well-configured [Claude Code](https://github.com/anthropics/claude-code) performs at its best. cc-enhance is a self-enhancement plan — it teaches Claude Code how to improve itself through standard Skills and an interactive installation wizard.
+A well-configured [Claude Code](https://github.com/anthropics/claude-code) performs at its best.
+
+> cc-enhance is a self-enhancement plan — it installs a set of Agent Skills and their underlying dependencies, gradually making Claude Code more capable.
 
 ## 💻 How It Works
 
-1. Claude Code reads this repo → finds `BOOT.md` first
+1. Claude Code reads this repo → reads `BOOT.md` first
 2. `BOOT.md` guides Claude to **present all skills for the user to multi-select**
 3. For each selected skill → copied to `~/.claude/skills/` → checks that skill's dependencies → asks whether to install each
-4. Only one skill (`tool-registry`) writes to the user's `~/.claude/CLAUDE.md`, with precise, fixed content
 
-## 📦 Usage
+> PS: Only one skill (`tool-registry`) writes to your `~/.claude/CLAUDE.md`, with precise, fixed content. Please ask for user consent before modifying `CLAUDE.md`.
+
+## 🚀 Usage
 
 From any Claude Code session, type:
 
@@ -56,8 +59,6 @@ cc-enhance/
         ├── SKILL.md                 
         └── references/
 ```
-
-> Each skill's `SKILL.md` follows Claude Code standard format (frontmatter + content). `references/` holds technical details.
 
 ## 📜 License
 
