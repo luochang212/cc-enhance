@@ -59,6 +59,15 @@ cc-enhance/
         └── references/
 ```
 
+## 🤝 Contributing
+
+We welcome all forms of contribution!
+
+- 🐛 Bug Reports — Found an issue? Submit an Issue
+- 💡 Feature Suggestions — Have a good idea? Let us know
+- 📝 Content Improvements — Help refine the documentation
+- 🔧 Skill Enhancements — Submit a Pull Request
+
 ## 📜 License
 
 [MIT](LICENSE)
