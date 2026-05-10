@@ -1,0 +1,71 @@
+{
+  "mcp": {
+    "web_search_prime": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "mcp__web-search-prime__web_search_prime search_query=\"test\"",
+      "notes": "智谱 GLM Coding Plan 的 Remote MCP。域名过滤、时间范围、内容长度控制强于 Tavily。额度：Lite 100/Pro 1000/Max 4000 次每月。",
+      "history": null
+    },
+    "minimax_web_search": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "mcp__MiniMax__web_search query=\"test\"",
+      "notes": "MCP MiniMax web_search。可能受 token plan 限制，实测 coding-plan 不支持。",
+      "history": null
+    },
+    "zread": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "mcp__zread__search_doc repo_name=\"vitejs/vite\" query=\"test\"",
+      "notes": "智谱 MCP。GitHub 仓库文件读取与文档搜索。有月额度限制。",
+      "history": null
+    }
+  },
+  "cli": {
+    "tavily": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "curl -s -X POST https://api.tavily.com/search -H 'Content-Type: application/json' -d '{\"api_key\": \"$TAVILY_API_KEY\", \"query\": \"test\", \"max_results\": 1}'",
+      "notes": "首选搜索。注册 tavily.com 免费 1000 次/月，设为 TAVILY_API_KEY。~0.6s 响应，JSON 返回，不限频。",
+      "history": null
+    },
+    "searxng": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "curl -s 'http://localhost:8080/search?format=json&q=test'",
+      "notes": "自部署元搜索引擎。Docker 部署，settings.yml 必须设 formats: [html, json] 否则 API 返回 403。无额度限制，~3s 响应。",
+      "history": null
+    },
+    "crawl4ai": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "python -c \"from crawl4ai import AsyncWebCrawler; print('ok')\"",
+      "notes": "Playwright 包装层。browser_type=chromium 比默认 headless shell 快 3x。magic=True 解微信公众号。success=False 不代表没拿到内容。python 3.10+，建议 venv。",
+      "history": null
+    },
+    "playwright": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "python -c \"from playwright.sync_api import sync_playwright; print('ok')\"",
+      "notes": "原生浏览器自动化。Crawl4AI 超时/被检测时的降级方案。wait_until=commit 解阮一峰超时。无需 magic 即可读微信。输出 inner_text 纯文本。",
+      "history": null
+    }
+  },
+  "api": {
+    "duckduckgo": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "https://html.duckduckgo.com/html/?q=test",
+      "notes": "最后兜底。免费无需注册。~2s 响应，HTML 需解析（class=result__a, result__snippet）。~3 次请求后触发 HTTP 202 限频。curl 需带浏览器 UA。",
+      "history": null
+    },
+    "jina_reader": {
+      "status": "not_verified",
+      "updated": null,
+      "invoke": "https://r.jina.ai/https://example.com",
+      "notes": "r.jina.ai / s.jina.ai。中国大陆网络不可达（TLS 错误）。",
+      "history": null
+    }
+  }
+}
