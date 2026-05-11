@@ -1,6 +1,6 @@
 # BOOT
 
-分八个阶段安装 cc-enhance skills。每个阶段用 `AskUserQuestion` 交互，不要让用户手动输入文字。
+分九个阶段安装 cc-enhance skills。每个阶段用 `AskUserQuestion` 交互，不要让用户手动输入文字。
 
 ## 阶段 0：获取仓库
 
@@ -26,7 +26,43 @@ unzip -qo /tmp/cc-enhance.zip -d /tmp
 
 question 和 header 自行拟定。用户可能全选或部分选。
 
-## 阶段 2：复制文件 + 收集依赖
+## 阶段 2：推荐插件
+
+参考 `skills/agent-skills-cce/references/recommended.md` § obra/superpowers 和 § affaan-m/everything-claude-code。
+
+用 `AskUserQuestion`（非 multiSelect）建议安装元技能插件。options:
+
+| label | description |
+|-------|-------------|
+| 安装 superpowers | obra/superpowers 元技能框架：brainstorming、executing-plans、subagent-driven-development、verification-before-completion。Claude Code 内置 plugin 安装，零依赖。 |
+| 安装 everything-claude-code | affaan-m/everything-claude-code：48 个 Agent、182 个 Skill、68 个命令，覆盖代码审查、构建修复、测试、质量安全、工作流编排、持续学习、多语言。 |
+| 跳过 | 不安装 |
+
+用户选「安装 superpowers」→ 执行：
+
+```
+/plugin install superpowers@superpowers-marketplace
+```
+
+用户选「安装 everything-claude-code」→ 执行：
+
+```
+/plugin marketplace add https://github.com/affaan-m/everything-claude-code
+/plugin install everything-claude-code@everything-claude-code
+```
+
+安装后可选复制 rules：
+
+```bash
+git clone https://github.com/affaan-m/everything-claude-code.git /tmp/ecc
+mkdir -p ~/.claude/rules/ecc
+cp -R /tmp/ecc/rules/common ~/.claude/rules/ecc/
+cp -R /tmp/ecc/rules/typescript ~/.claude/rules/ecc/  # 按需选择语言
+```
+
+安装完成后告知用户可使用 `/plugin list` 查看已安装插件。
+
+## 阶段 3：复制文件 + 收集依赖
 
 对每个选中的 skill：
 
@@ -42,22 +78,22 @@ question 和 header 自行拟定。用户可能全选或部分选。
 - 所有缺失依赖（跨 skill 合并），标注用途、安装方式、磁盘开销
 
 将缺失依赖按安装方式分为两类：
-- **自动安装**：能通过 pip/npm/docker/apt 等命令行完成的 → 进入阶段 3
-- **需注册账号**：安装方式涉及"注册""API Key""申请"等需要离开 CC 操作的 → 跳过阶段 3，统一在阶段 5（流程末尾）处理
+- **自动安装**：能通过 pip/npm/docker/apt 等命令行完成的 → 进入阶段 4
+- **需注册账号**：安装方式涉及"注册""API Key""申请"等需要离开 CC 操作的 → 跳过阶段 4，统一在阶段 6（流程末尾）处理
 
 > 分类规则依赖 SKILL.md「环境依赖」表的「安装方式」列。后续新增 skill 只需如实描述安装方式，无需修改 BOOT.md。
 
-## 阶段 3：安装依赖（仅自动安装类）
+## 阶段 4：安装依赖（仅自动安装类）
 
-如果阶段 2 没有「自动安装」类缺失依赖 → 跳过本阶段。
+如果阶段 3 没有「自动安装」类缺失依赖 → 跳过本阶段。
 
 否则，用 `AskUserQuestion`（multiSelect）一次性让用户选择要安装哪些依赖。options 仅列自动安装类，description 写清用途和开销。用户勾选的 → 执行安装；未勾选的 → 跳过。
 
 安装过程中如遇错误，报告但不中断后续安装。
 
-> 「需注册账号」类依赖不在此阶段出现，统一在阶段 5 处理。
+> 「需注册账号」类依赖不在此阶段出现，统一在阶段 6 处理。
 
-## 阶段 4：生成 tool-registry.json
+## 阶段 5：生成 tool-registry.json
 
 仅当用户选了 `tool-registry`。**不要直接复制 catalog，要扫描本机后动态生成。**
 
@@ -70,7 +106,7 @@ question 和 header 自行拟定。用户可能全选或部分选。
 逐一核查 catalog 中每个工具在本机是否存在：
 
 - **MCP 工具**：读 `~/.claude/settings.json`（和 `~/.claude/settings.local.json`），检查 `mcpServers` 或 `mcpServersFromPlugins` 中有没有对应条目。用 catalog 中该工具的 `invoke` 前缀（如 `mcp__web-search-prime__`）去匹配。
-- **CLI 工具**：检查可执行文件（`which docker`、`which gh` 等）或 Python 包（`python3 -c "import crawl4ai"`）。同时检查阶段 3 是否刚刚安装过。
+- **CLI 工具**：检查可执行文件（`which docker`、`which gh` 等）或 Python 包（`python3 -c "import crawl4ai"`）。同时检查阶段 4 是否刚刚安装过。
 - **API 端点**：检查对应的环境变量（`$TAVILY_API_KEY` 等），不做网络请求验证，标记 `not_verified`。
 
 ### 4.3 生成注册表
@@ -102,9 +138,9 @@ question 和 header 自行拟定。用户可能全选或部分选。
 
 写入规则：已有该章节则替换整节，否则末尾追加。不在此之外写任何内容。
 
-## 阶段 5：账号注册
+## 阶段 6：账号注册
 
-如果阶段 2 没有「需注册账号」类缺失依赖 → 跳过本阶段。
+如果阶段 3 没有「需注册账号」类缺失依赖 → 跳过本阶段。
 
 此类依赖需要用户离开 CC 去网站操作，对体验打断最大，故放在流程末尾集中处理。每个依赖单独 `AskUserQuestion`（非 multiSelect），不要和其他依赖混在一起。
 
@@ -116,7 +152,7 @@ question 和 header 自行拟定。用户可能全选或部分选。
 
 > 当前涉及「需注册账号」的依赖只有 Tavily API Key。后续新增 skill 若在「安装方式」中写了"注册""API Key"等关键词，会自动归入本阶段。
 
-## 阶段 6：体验引导
+## 阶段 7：体验引导
 
 安装只是开始，让用户立刻感受到技能的价值。
 
@@ -139,7 +175,7 @@ question 和 header 自行拟定。用户可能全选或部分选。
 ### 优先级 3：工具状态（tool-registry-cce）
 
 1. 无需 AskUserQuestion，直接对 `~/.claude/tool-registry.json` 中已检测到的工具执行轻量验证：
-   - CLI 工具：已在阶段 2/3 验证过，直接展示状态
+   - CLI 工具：已在阶段 3/4 验证过，直接展示状态
    - API 端点（Tavily、DuckDuckGo 等）：发一次最小请求确认可用性
    - MCP 工具：检查 MCP server 是否可达
 2. 更新注册表中各工具的 `status`（`working` / `unreachable`）和 `updated` 时间戳。
@@ -155,6 +191,6 @@ question 和 header 自行拟定。用户可能全选或部分选。
 
 后续新增 skill 若有可演示的能力，在本节追加优先级条目即可。
 
-## 阶段 7：完成
+## 阶段 8：完成
 
 简短总结：已安装 skills、已安装/未安装的依赖、CLAUDE.md 是否更新、已注册/未注册的账号。

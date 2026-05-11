@@ -20,7 +20,7 @@
 在 Claude Code 会话中输入：
 
 ```
-用 https://github.com/luochang212/cc-enhance 武装我的 Claude Code
+用 https://github.com/luochang212/cc-enhance 增强我的 Claude Code
 ```
 
 ## 🔧 Skills 清单
