@@ -134,6 +134,25 @@ npx skills add https://github.com/obra/superpowers \
 
 ## 精选合集
 
+### affaan-m/everything-claude-code
+
+AI Agent Harness 性能优化系统：48 个 Agent、182 个 Skill、68 个命令，覆盖代码审查、构建修复、测试、质量安全、工作流编排、持续学习、多语言（Rust/Go/Kotlin/Flutter/C++/Python/Java）。
+
+**Claude Code**——优先使用内置 plugin 命令安装：
+
+```
+/plugin marketplace add https://github.com/affaan-m/everything-claude-code
+/plugin install everything-claude-code@everything-claude-code
+```
+
+安装后手动复制需要的 rules：
+```bash
+git clone https://github.com/affaan-m/everything-claude-code.git /tmp/ecc
+mkdir -p ~/.claude/rules/ecc
+cp -R /tmp/ecc/rules/common ~/.claude/rules/ecc/
+cp -R /tmp/ecc/rules/typescript ~/.claude/rules/ecc/  # 按需选择语言
+```
+
 ### ComposioHQ/awesome-claude-skills
 
 ```bash
